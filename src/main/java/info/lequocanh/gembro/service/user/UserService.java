@@ -8,6 +8,8 @@ import java.util.Optional;
 
 /**
  * Created by quocanh on 23/06/15.
+ *
+ * Contact: ing.dev.java@gmail.com
  */
 public interface UserService {
 
