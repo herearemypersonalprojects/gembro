@@ -1,5 +1,6 @@
 package info.lequocanh.gembro.service.user;
 
+import info.lequocanh.gembro.domain.user.Role;
 import info.lequocanh.gembro.domain.user.User;
 import info.lequocanh.gembro.domain.user.UserCreateForm;
 import info.lequocanh.gembro.repository.UserRepository;
@@ -43,6 +44,12 @@ public class UserServiceImpl implements UserService{
     public Collection<User> getAllUsers() {
         LOGGER.debug("Getting all users");
         return userRepository.findAll(new Sort("email"));
+    }
+
+    @Override
+    public Collection<User> getUsersByRole(Role role) {
+        LOGGER.debug("Getting all users by their role");
+        return userRepository.findUsersByRole(role);
     }
 
     @Override

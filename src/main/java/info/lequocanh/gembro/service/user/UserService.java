@@ -1,5 +1,6 @@
 package info.lequocanh.gembro.service.user;
 
+import info.lequocanh.gembro.domain.user.Role;
 import info.lequocanh.gembro.domain.user.User;
 import info.lequocanh.gembro.domain.user.UserCreateForm;
 
@@ -18,6 +19,8 @@ public interface UserService {
     Optional<User> getUserByEmail(String email);
 
     Collection<User> getAllUsers();
+
+    Collection<User> getUsersByRole(Role role);
 
     User create(UserCreateForm form);
 }

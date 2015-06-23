@@ -1,5 +1,6 @@
 package info.lequocanh.gembro.controller.user;
 
+import info.lequocanh.gembro.domain.user.Role;
 import info.lequocanh.gembro.service.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,4 +30,12 @@ public class UsersController {
         LOGGER.debug("Getting users page");
         return new ModelAndView("users", "users", userService.getAllUsers());
     }
+
+    @RequestMapping("/role")
+    public ModelAndView getUsersPage(Role role) {
+        LOGGER.debug("Getting users page by their role: " + role.name());
+        return new ModelAndView("users", "users", userService.getUsersByRole(role));
+    }
+
+
 }
