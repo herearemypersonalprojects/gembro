@@ -9,6 +9,7 @@ import java.sql.Date;
  * Contact: ing.dev.java@gmail.com
  */
 @Entity
+@NamedQuery(name = "Property.findByCity", query = "select p from Property p where p.city = :city")
 @Table(name = "LOC_BIEN")
 public class Property {
 
@@ -18,7 +19,7 @@ public class Property {
 
     @Column(name = "id_proprietaire") Long idOwner;
 
-    @Column(name = "type") TypeProperty typeProperty;
+    @Column(name = "type") @Enumerated(EnumType.STRING) TypeProperty typeProperty;
 
     @Column(name = "adresse")  String address;
 
@@ -77,13 +78,10 @@ public class Property {
         this.idOwner = idOwner;
     }
 
-    public TypeProperty getTypeProperty() {
-        return typeProperty;
-    }
+    @Enumerated(EnumType.STRING)
+    public TypeProperty getTypeProperty() {    return typeProperty;    }
 
-    public void setTypeProperty(TypeProperty typeProperty) {
-        this.typeProperty = typeProperty;
-    }
+    public void setTypeProperty(TypeProperty typeProperty) {      this.typeProperty = typeProperty;    }
 
     public String getAddress() {
         return address;

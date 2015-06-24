@@ -11,4 +11,6 @@ import java.util.Collection;
  */
 public interface PropertyService {
     Collection<Property> getPropertiesByPostalCode(Integer postalCode);
+
+    Collection<Property> getPropertiesByCity(String city);
 }

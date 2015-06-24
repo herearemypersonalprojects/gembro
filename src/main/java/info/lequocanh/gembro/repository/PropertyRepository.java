@@ -14,10 +14,9 @@ import java.util.Collection;
  * Contact: ing.dev.java@gmail.com
  */
 public interface PropertyRepository  extends JpaRepository<Property, Long> {
-    static String FIND_BY_POSTAL_CODE = "SELECT t FROM Property t where t.postalCode = :postalCode";
 
-    @Query(FIND_BY_POSTAL_CODE)
+    @Query(value = "select distinct * from LOC_BIEN where CP = :postalCode", nativeQuery = true)
     Collection<Property> findByPostalCode(@Param("postalCode") Integer postalCode);
 
-
+    Collection<Property> findByCity(@Param("city") String city);
 }

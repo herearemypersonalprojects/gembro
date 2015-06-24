@@ -9,93 +9,87 @@ public enum TypeProperty {
     /**
      * Maison individuelle
      */
-    MAISON_INDIVIDUELLE("Maison individuelle"),
+    MAISON_INDIVIDUELLE,
     /**
      * Appartement
      */
-    APPARTEMENT("Appartement"),
+    APPARTEMENT,
 
     /**
      * Appartement meublé
      */
-    APPARTEMENT_MEUBLE("Appartement meublé"),
+    APPARTEMENT_MEUBLE,
     /**
      * Local professionnel
      */
-    LOCAL_PROFESSIONNEL("Local professionnel"),
+    LOCAL_PROFESSIONNEL,
     /**
      * Commerce
      */
-    COMMERCE("Commerce"),
+    COMMERCE,
     /**
      * Bureaux
      */
-    BUREAUX("Bureaux"),
+    BUREAUX,
     /**
      * Chambre meublée
      */
-    CHAMBRE_MEUBLEE("Chambre meublée"),
+    CHAMBRE_MEUBLEE,
     /**
      * Entrepot
      */
-    ENTREPOT("Entrepot"),
+    ENTREPOT,
     /**
      * Garage:Box
      */
-    GARAGE_BOX("Garage:Box"),
+    GARAGE_BOX,
     /**
      * Parking
      */
-    PARKING("Parking"),
+    PARKING,
     /**
      * Terrain
      */
-    TERRAIN("Terrain"),
+    TERRAIN,
     /**
      * Caravanne
      */
-    CARAVANNE("Caravanne"),
+    CARAVANNE,
     /**
      * Mobil-Home
      */
-    MOBIL_HOME("Mobil-Home"),
+    MOBIL_HOME,
     /**
      * Chalet
      */
-    CHALET("Chalet"),
+    CHALET,
     /**
      * Atelier
      */
-    ATELIER("Atelier"),
+    ATELIER,
     /**
      * le type de bien n'est pas déterminé
      */
-    INDETERMINE("Indéterminé"),
+    INDETERMINE,
     /**
      * Appartement RC + PNO
      */
-    APPARTEMENT_RC_PLUS_PNO("Appartement"),
+    APPARTEMENT_RC_PLUS_PNO,
     /**
      * Maison Individuelle RC Seule -TypeProduit mise à null car ce type de bien n'est pas utilisé pour le moment
      */
-    MAISON_INDIVIDUELLE_RC_SEULE("Maison Individuelle RC Seule"),
+    MAISON_INDIVIDUELLE_RC_SEULE,
     /**
      * Maison Individuelle RC + PNO
      */
-    MAISON_INDIVIDUELLE_RC_PLUS_PNO("Maison Individuelle"),
+    MAISON_INDIVIDUELLE_RC_PLUS_PNO,
     /**
      * Bureaux RC + PNO de surface inférieure à 200m²
      */
-    BUREAUX_SURFACE_INFERIEURE_A_200_METRE_CARRE("Bureaux de surface inférieure à 200m²"),
+    BUREAUX_SURFACE_INFERIEURE_A_200_METRE_CARRE,
     /**
      * Bureaux RC + PNO de surface comprise entre 200m² et 600m²
      */
-    BUREAUX_SURFACE_ENTRE_200_METRE_CARRE_ET_600_METRE_CARRE("Bureaux de surface comprise entre 200m² et 600m²");
-    ;
+    BUREAUX_SURFACE_ENTRE_200_METRE_CARRE_ET_600_METRE_CARRE;
 
-    private final String title;
-
-    private TypeProperty(String title) {
-        this.title = title;
-    }
 }

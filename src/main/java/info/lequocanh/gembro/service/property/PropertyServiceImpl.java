@@ -32,4 +32,12 @@ public class PropertyServiceImpl implements PropertyService {
         LOGGER.debug("results: " + results.size());
         return results;
     }
+
+    @Override
+    public Collection<Property> getPropertiesByCity(String city) {
+        LOGGER.debug("Getting all properties in the city: " + city);
+        Collection<Property> results = propertyRepository.findByCity(city);
+        LOGGER.debug("results: " + results.size());
+        return results;
+    }
 }

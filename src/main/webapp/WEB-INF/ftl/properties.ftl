@@ -1,4 +1,4 @@
-<#-- @ftlvariable name="users" type="java.util.List<info.lequocanh.gembro.domain.good.Property>" -->
+<#-- @ftlvariable name="properties" type="java.util.List<info.lequocanh.gembro.domain.good.Property>" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +20,7 @@
     <#list properties as property>
     <tr>
         <td><a href="/property/${property.id}">${property.address}</a></td>
-        <td>${property.ville}</td>
+        <td>${property.city}</td>
     </tr>
     </#list>
     </tbody>

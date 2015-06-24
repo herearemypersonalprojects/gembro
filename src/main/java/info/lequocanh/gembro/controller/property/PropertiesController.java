@@ -28,4 +28,10 @@ public class PropertiesController {
         LOGGER.debug("Getting properties page");
         return new ModelAndView("properties", "properties", propertyService.getPropertiesByPostalCode(postalCode));
     }
+
+    @RequestMapping("/list")
+    public ModelAndView getPropertiesPage(String city) {
+        LOGGER.debug("Getting properties page in the city: " + city);
+        return new ModelAndView("properties", "properties", propertyService.getPropertiesByCity(city));
+    }
 }
