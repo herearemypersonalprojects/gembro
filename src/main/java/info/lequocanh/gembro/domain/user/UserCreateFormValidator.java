@@ -1,6 +1,7 @@
 package info.lequocanh.gembro.domain.user;
 
 import info.lequocanh.gembro.service.user.UserService;
+import info.lequocanh.gembro.tools.EmailTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,10 @@ public class UserCreateFormValidator implements Validator {
     }
 
     private void validateEmail(Errors errors, UserCreateForm form) {
+        if (!EmailTool.isValidEmailAddress(form.getEmail())) {
+            errors.reject("email.invalid", "The email " + form.getEmail() + " can not be validated. Please enter your right email format: user@domain.extension)");
+        }
+
         if (userService.getUserByEmail(form.getEmail()).isPresent()) {
             errors.reject("email.exists", "User with this email already exists");
         }

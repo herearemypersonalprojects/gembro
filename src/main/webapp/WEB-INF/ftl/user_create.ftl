@@ -45,7 +45,7 @@
 <#if spring.status.error>
 <ul>
     <#list spring.status.errorMessages as error>
-        <li>${error}</li>
+        <li style="color: #ff0000"> ${error}</li>
     </#list>
 </ul>
 </#if>

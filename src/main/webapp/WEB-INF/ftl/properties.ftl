@@ -9,6 +9,9 @@
 
 <h1>List of Properties</h1>
 
+<#-- Search Engine -->
+
+<#-- Results -->
 <table>
     <thead>
     <tr>
