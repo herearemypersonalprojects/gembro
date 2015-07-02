@@ -1,9 +1,8 @@
-
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Geolocation</title>
+    <title>GEMBRO</title>
+
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <style>
@@ -12,6 +11,17 @@
             margin: 0px;
             padding: 0px
         }
+
+        #save-widget {
+            width: 300px;
+            box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
+            background-color: white;
+            padding: 10px;
+            font-family: Roboto, Arial;
+            font-size: 13px;
+            margin: 15px;
+        }
+
         .controls {
             margin-top: 16px;
             border: 1px solid transparent;
@@ -62,18 +72,21 @@
 
     <title>Places search box</title>
 
+    <script src="/static/jquery-2.1.1.js" type="text/javascript"></script>
     <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;language=vi&amp;v=3.exp&libraries=places" type="text/javascript"></script>
-
     <script src="/static/GoogleMapControl.js" type="text/javascript"></script>
-
     <script src="/static/lang.js" type="text/javascript"></script>
 
-    <script src
 
 </head>
 <body>
-    <input id="pac-input" class="controls" type="text" placeholder="Tim kiem dia chi">
     <div id="map-canvas"></div>
+
+    <div id="save-widget">
+        <strong>Ket noi cong dong</strong>
+        <p>Hãy sửa vị trí tin của bạn trên bản đồ bằng cách kéo icon tới đúng vị trí của tin.</p>
+    </div>
+
 </body>
 </html>
 

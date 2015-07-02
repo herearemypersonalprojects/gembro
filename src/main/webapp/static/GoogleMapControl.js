@@ -15,6 +15,11 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 
 
+$('#filter').click(function() {
+   alert("ok");
+});
+
+
 function initialize() {
     try {
         infowindow = new google.maps.InfoWindow();
@@ -30,17 +35,24 @@ function initialize() {
             navigator.geolocation.getCurrentPosition(function(position) {
                 var pos = new google.maps.LatLng(position.coords.latitude,
                     position.coords.longitude);
-                /*
-                var infowindow = new google.maps.InfoWindow({
+
+                var pos2 = new google.maps.LatLng(position.coords.latitude,
+                    position.coords.longitude + 0.01);
+                infowindow = new google.maps.InfoWindow({
                     map: map,
-                    position: pos,
+                    position: pos2,
                     content: 'Ban dang o day.'
                 });
-                */
+
                 marker = new google.maps.Marker({
                     map: map,
                     position: pos,
                     draggable: true
+                });
+
+                // Opens the InfoWindow when marker is clicked.
+                marker.addListener('click', function() {
+                    infowindow.open(map, marker);
                 });
 
                 map.setCenter(pos);
@@ -66,6 +78,9 @@ function initialize() {
         getAddress();
     } catch (ex) {
     }
+
+
+
 }
 
 function handleNoGeolocation(errorFlag) {
