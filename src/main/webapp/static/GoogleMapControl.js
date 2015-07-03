@@ -126,6 +126,22 @@ function initialize() {
     } catch (ex) {
     }
 
+    var postions = [48.891304999999996,2.352986699999974,
+                    48.89488502433846,2.3427486419677734,
+                    48.89031408713753,2.3507308959960938,
+                    48.88912896112609,2.353992462158203,
+                    48.89020121920382,2.347683906555176,
+                    48.89457466528419,2.3502588272094727,
+                    48.89488502433846,2.3427486419677734];
+
+    for (idx = 0; idx < postions.length; idx = idx + 2) {
+        var servicePos = new google.maps.LatLng(postions[idx], postions[idx+1]);
+        var service = new google.maps.InfoWindow({
+            map: map,
+            position: servicePos,
+            content: 'Service ' + idx
+        });
+    }
 
 
 }
@@ -347,6 +363,7 @@ function showLocation(address) {
                 });
                 document.getElementById('txtPositionX').value = lat;
                 document.getElementById('txtPositionY').value = lng;
+
                 if (infowindow != null) {
                     infowindow.setContent("<span id='address'><b>" + bds_lang.GoogleMaps.Address + " : </b>" + address + "</span>");
                     infowindow.open(map, marker);
@@ -375,13 +392,13 @@ function showLocation(address) {
 function getAddress(makerDrag) {
     try {
         var point = marker.getPosition();
-//alert(point);
+
         var lat = point.lat();
         var lng = point.lng();
         document.getElementById('txtPositionX').value = lat;
         document.getElementById('txtPositionY').value = lng;
         var latlng = new google.maps.LatLng(lat, lng);
-//alert(latlng);
+        //console.log(lat + "," + lng);
         geocoder.geocode({ 'latLng': latlng }, function (results2, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 if (results2 != null && results2[0] != null) {
@@ -446,6 +463,7 @@ function strLatLng() {
     try {
         var lat = $('#txtPositionX').val();
         var lng = $('#txtPositionY').val();
+
         return lat + "," + lng;
     } catch (ex) {
         console.log(ex);

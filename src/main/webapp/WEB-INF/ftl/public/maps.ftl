@@ -87,6 +87,8 @@
             $('#street').blur(function () {
                 ShowLocation();
             });
+
+            $
         });
     </script>
 </head>
@@ -97,9 +99,6 @@
 
     <input id="txtPositionY" type="hidden" value="" name="txtPositionY">
     <input id="txtPositionX" type="hidden" value="" name="txtPositionX">
-
-    <input type="hidden" name="hddLatitude" id="hddLatitude" />
-
 
     <div id="save-widget">
         <strong>Cảm ơn bạn đã đóng góp cho cộng đồng</strong>
@@ -113,6 +112,8 @@
         <select id="city" name="city" placeholder="thanh pho">
             <option value="paris">Paris</option>
             <option value="Lyon">Lyon</option>
+            <option value="La Courneuve">La Courneuve</option>
+            <option value="Auberlliviers">Auberlliviers</option>
         </select>
 
         <input id="street" name="street" type="text" placeholder="địa chỉ">
