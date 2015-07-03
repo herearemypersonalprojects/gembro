@@ -38,7 +38,7 @@
             font-family: Roboto;
             font-size: 15px;
             font-weight: 300;
-            margin-left: 12px;
+            margin-right: 12px;
             padding: 0 11px 0 13px;
             text-overflow: ellipsis;
             width: 400px;
@@ -77,15 +77,51 @@
     <script src="/static/GoogleMapControl.js" type="text/javascript"></script>
     <script src="/static/lang.js" type="text/javascript"></script>
 
+    <script type="text/javascript">
+        $(function () {
+            $('#city').change(function () {
+                $('#street').val("");
+                ShowLocation();
+            });
 
+            $('#street').blur(function () {
+                ShowLocation();
+            });
+        });
+    </script>
 </head>
 <body>
+
+
     <div id="map-canvas"></div>
 
+    <input id="txtPositionY" type="hidden" value="" name="txtPositionY">
+    <input id="txtPositionX" type="hidden" value="" name="txtPositionX">
+
+    <input type="hidden" name="hddLatitude" id="hddLatitude" />
+
+
     <div id="save-widget">
-        <strong>Ket noi cong dong</strong>
-        <p>Hãy sửa vị trí tin của bạn trên bản đồ bằng cách kéo icon tới đúng vị trí của tin.</p>
+        <strong>Cảm ơn bạn đã đóng góp cho cộng đồng</strong>
+        <p>Bạn có thể sửa địa chỉ bằng cách di chuyển icon tới đúng vị trí trên bản đồ.</p>
     </div>
+
+    <!--<input id="pac-input" class="controls" type="text" placeholder="Search Box">-->
+
+    <form id = "addNewService" method = "POST">
+        <table style = "width: 100%">
+        <select id="city" name="city" placeholder="thanh pho">
+            <option value="paris">Paris</option>
+            <option value="Lyon">Lyon</option>
+        </select>
+
+        <input id="street" name="street" type="text" placeholder="địa chỉ">
+
+        <input id="info" name="info" type="text" placeholder="thông tin dịch vụ">
+
+        <button type="submit" form="addNewService">Gửi đi</button>
+
+    </form>
 
 </body>
 </html>

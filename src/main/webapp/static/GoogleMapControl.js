@@ -1,23 +1,23 @@
 
 var map = undefined;
 var marker = null;
-var geocoder;
+var geocoder = null;
 var infowindow = null;
 var addressReturn;
 var latlngReturn;
+
+var saveWidget;
 
 var lat;
 var lng;
 // Người dùng thay đổi vị trí bản đồ
 var isMakerDrag = false;
+
+
+
 //Khởi tạo
 google.maps.event.addDomListener(window, 'load', initialize);
 
-
-
-$('#filter').click(function() {
-   alert("ok");
-});
 
 
 function initialize() {
@@ -27,8 +27,9 @@ function initialize() {
             zoom: 15,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
-        map = new google.maps.Map(document.getElementById('map-canvas'),
-            mapOptions);
+        var mapDiv = document.getElementById('map-canvas');
+
+        map = new google.maps.Map(mapDiv, mapOptions);
 
         // Try HTML5 geolocation
         if(navigator.geolocation) {
@@ -56,6 +57,56 @@ function initialize() {
                 });
 
                 map.setCenter(pos);
+
+                /*
+                var input = (document.getElementById('pac-input'));
+                map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
+                */
+                var addNewServiceForm = /** @type {HTMLInputElement} */(
+                    document.getElementById('addNewService'));
+                map.controls[google.maps.ControlPosition.TOP_RIGHT].push(addNewServiceForm);
+
+                /*
+                var addressInput = (document.getElementById('street'));
+                map.controls[google.maps.ControlPosition.TOP_RIGHT].push(addressInput);
+
+
+                var cityInput =(document.getElementById('city'));
+                map.controls[google.maps.ControlPosition.TOP_RIGHT].push(cityInput);
+                */
+
+
+                var widgetDiv = document.getElementById('save-widget');
+                map.controls[google.maps.ControlPosition.TOP_LEFT].push(widgetDiv);
+
+                geocoder = new google.maps.Geocoder();
+                getAddress();
+
+                google.maps.event.addListener(map, 'click', function (event) {
+                    placeMarker(event.latLng);
+                });
+                google.maps.event.addListener(marker, 'dragstart', function () {
+                    if (infowindow != null)
+                        infowindow.close();
+                });
+                google.maps.event.addListener(marker, 'dragend', function () {
+                    getAddress(true);
+                });
+                /*
+                for (var i = 0; i < 5; i++) {
+                    var pos3 = new google.maps.LatLng(
+                        position.coords.latitude,
+                        position.coords.longitude + 0.004*i);
+                    var marker = new google.maps.Marker({
+                        position: pos3,
+                        map: map
+                    });
+
+                    marker.setTitle((i + 1).toString());
+                    attachSecretMessage(marker, i);
+                }
+                */
+
             }, function() {
                 handleNoGeolocation(true);
             });
@@ -64,24 +115,38 @@ function initialize() {
             handleNoGeolocation(false);
         }
 
-        google.maps.event.addListener(map, 'click', function (event) {
-            placeMarker(event.latLng);
-        });
-        google.maps.event.addListener(marker, 'dragstart', function () {
-            if (infowindow != null)
-                infowindow.close();
-        });
-        google.maps.event.addListener(marker, 'dragend', function () {
-            getAddress(true);
-        });
-        geocoder = new google.maps.Geocoder();
-        getAddress();
+
+
+        // We add a DOM event here to show an alert if the DIV containing the
+        // map is clicked. Note that we do this within the intialize function
+        // since the document object isn't loaded until after the window.load
+        // event.
+        //google.maps.event.addDomListener(mapDiv, 'click', showAlert);
+
     } catch (ex) {
     }
 
 
 
 }
+function showAlert() {
+    window.alert('DIV clicked');
+}
+
+
+// The five markers show a secret message when clicked
+// but that message is not within the marker's instance data
+function attachSecretMessage(marker, num) {
+    var message = ['This', 'is', 'the', 'secret', 'message'];
+    var infowindow = new google.maps.InfoWindow({
+        content: message[num]
+    });
+
+    google.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(marker.get('map'), marker);
+    });
+}
+
 
 function handleNoGeolocation(errorFlag) {
     if (errorFlag) {
@@ -229,6 +294,26 @@ function showProjectLocation(lat, lng, name) {
     });
     google.maps.event.addListener(marker, 'dragend', getAddress);
 }
+
+function ShowLocation() {
+    var address = "";
+    var cityCode = $('#city').val();
+    var street = $('#street').val();
+
+    address = street + ", ";
+
+    if (cityCode != '' && cityCode != 0) {
+        address = address + $('#city').children('option:selected').text() + ", ";
+    }
+    address = address + "France";
+//initialize($('#hdfLatitude').val(), $('#hdfLongitude').val());
+    var mySplitResult = strLatLng().split(",");
+    $("#hddLatitude").val(mySplitResult[0]);
+    $("#hddLongtitude").val(mySplitResult[1]);
+    showLocation(address);
+    $('#mapinfo').show();
+}
+
 function showLocation(address) {
     if (address != null && address != '') {
         var add = address.split(',');
