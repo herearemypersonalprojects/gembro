@@ -1,3 +1,5 @@
+<#-- @ftlvariable name="serviceMap" type="info.lequocanh.gembro.domain.good.ServiceMap" -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -107,8 +109,8 @@
 
     <!--<input id="pac-input" class="controls" type="text" placeholder="Search Box">-->
 
-    <form id = "addNewService" method = "POST">
-        <table style = "width: 100%">
+    <form id = "serviceMap" role="form" name="serviceMap" method = "post">
+
         <select id="city" name="city" placeholder="thanh pho">
             <option value="paris">Paris</option>
             <option value="Lyon">Lyon</option>
@@ -118,9 +120,9 @@
 
         <input id="street" name="street" type="text" placeholder="địa chỉ">
 
-        <input id="info" name="info" type="text" placeholder="thông tin dịch vụ">
+        <input id="info"  name="info" type="text" placeholder="thông tin dịch vụ">
 
-        <button type="submit" form="addNewService">Gửi đi</button>
+        <button type="submit" form="serviceMap">Gửi đi</button>
 
     </form>
 

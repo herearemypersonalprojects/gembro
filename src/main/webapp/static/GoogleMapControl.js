@@ -63,7 +63,7 @@ function initialize() {
                 map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
                 */
                 var addNewServiceForm = /** @type {HTMLInputElement} */(
-                    document.getElementById('addNewService'));
+                    document.getElementById('serviceMap'));
                 map.controls[google.maps.ControlPosition.TOP_RIGHT].push(addNewServiceForm);
 
                 /*

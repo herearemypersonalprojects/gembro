@@ -28,12 +28,12 @@ public class MapController {
     @RequestMapping(value = "/public/maps", method = RequestMethod.GET)
     public String getMap(Model model)
     {
-        model.addAttribute("service", new ServiceMap());
+        model.addAttribute("serviceMap", new ServiceMap());
         return "/public/maps";
     }
 
     @RequestMapping(value = "/public/maps", method = RequestMethod.POST)
-    public String getMap(@ModelAttribute ServiceMap serviceMap, Model model)
+    public String getMap(@ModelAttribute("serviceMap") ServiceMap serviceMap, Model model)
     {
         try {
 
