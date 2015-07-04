@@ -12,9 +12,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import javax.xml.ws.Service;
 
 /**
  * Created by quocanh on 02/07/15.
@@ -32,13 +34,26 @@ public class MapController {
     }
 
     @RequestMapping(value = "/maps", method = RequestMethod.GET)
-    public ModelAndView getMaps() {
+    public ModelAndView displayMaps() {
         LOGGER.debug("Maps Page");
         return new ModelAndView("maps", "serviceMap", new ServiceMap());
     }
 
-    @RequestMapping(value = "/maps", method = RequestMethod.POST)
-    public String getMaps(@ModelAttribute("serviceMap") ServiceMap serviceMap) {
+    @RequestMapping("/maps/getServices")
+    @ResponseBody
+    public String getMaps() {
+        LOGGER.debug("Getting list of services");
+        return mapService.getListMaps();
+    }
+
+    @RequestMapping("/maps/create")
+    public String getMaps(@ModelAttribute("latitude") Double latitude,
+                          @ModelAttribute("longitude") Double longitude,
+                          @ModelAttribute("info") String info) {
+        ServiceMap serviceMap = new ServiceMap();
+        serviceMap.setLatitude(latitude);
+        serviceMap.setLongitude(longitude);
+        serviceMap.setInfo(info);
         LOGGER.debug(serviceMap.toString());
         try {
             mapService.create(serviceMap);

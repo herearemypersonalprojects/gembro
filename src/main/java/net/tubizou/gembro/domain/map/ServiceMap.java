@@ -10,7 +10,7 @@ import java.util.Date;
 @Table(name = "service")
 public class ServiceMap {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
 
     @Column(name = "latitude")

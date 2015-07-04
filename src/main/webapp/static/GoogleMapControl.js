@@ -6,8 +6,6 @@ var infowindow = null;
 var addressReturn;
 var latlngReturn;
 
-var saveWidget;
-
 var lat;
 var lng;
 // Người dùng thay đổi vị trí bản đồ
@@ -34,6 +32,30 @@ function showService() {
         map: map,
         position: servicePos,
         content: lstInfos[idx]
+    });
+
+    var createMapUrl = "http://localhost:2011/maps/create?latitude=" + $('#txtPositionX').val() + "&longitude=" + $('#txtPositionY').val() + "&info=" + $('#info').val();
+
+    $.ajax({
+        url: createMapUrl, success: function (result) {
+            $('#info').val('Creating a new service successfully!');
+        }
+    });
+}
+
+function getServices() {
+
+    $.getJSON('/maps/getServices', function(data){
+        $(data).each(function(idx, item){
+
+               // console.log(idx + ': ' + item + ' : ' + item.info + ' : ' + item.latitude + ' : ' + item.longitude);
+            var servicePos = new google.maps.LatLng(item.latitude, item.longitude);
+            var service = new google.maps.InfoWindow({
+                map: map,
+                position: servicePos,
+                content: item.info
+            });
+        });
     });
 }
 
@@ -132,33 +154,12 @@ function initialize() {
             handleNoGeolocation(false);
         }
 
-
-
-        // We add a DOM event here to show an alert if the DIV containing the
-        // map is clicked. Note that we do this within the intialize function
-        // since the document object isn't loaded until after the window.load
-        // event.
-        //google.maps.event.addDomListener(mapDiv, 'click', showAlert);
+        // hien thi tat ca dich vu tren ban do
+        getServices();
 
     } catch (ex) {
     }
 
-    var postions = [48.891304999999996,2.352986699999974,
-                    48.89488502433846,2.3427486419677734,
-                    48.89031408713753,2.3507308959960938,
-                    48.88912896112609,2.353992462158203,
-                    48.89020121920382,2.347683906555176,
-                    48.89457466528419,2.3502588272094727,
-                    48.89488502433846,2.3427486419677734];
-
-    for (idx = 0; idx < postions.length; idx = idx + 2) {
-        var servicePos = new google.maps.LatLng(postions[idx], postions[idx+1]);
-        var service = new google.maps.InfoWindow({
-            map: map,
-            position: servicePos,
-            content: 'Service ' + idx
-        });
-    }
 
 
 }
@@ -194,7 +195,7 @@ function handleNoGeolocation(errorFlag) {
         content: content
     };
 
-    var infowindow = new google.maps.InfoWindow(options);
+    infowindow = new google.maps.InfoWindow(options);
     map.setCenter(options.position);
 }
 
