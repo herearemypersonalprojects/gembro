@@ -1,6 +1,6 @@
 package net.tubizou.gembro.service.property;
 
-import net.tubizou.gembro.domain.good.Property;
+import net.tubizou.gembro.domain.map.Property;
 
 import java.util.Collection;
 

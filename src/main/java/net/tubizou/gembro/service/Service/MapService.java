@@ -1,6 +1,6 @@
 package net.tubizou.gembro.service.Service;
 
-import net.tubizou.gembro.domain.good.ServiceMap;
+import net.tubizou.gembro.domain.map.ServiceMap;
 import net.tubizou.gembro.repository.MapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

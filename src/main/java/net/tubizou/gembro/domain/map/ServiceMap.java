@@ -1,4 +1,4 @@
-package net.tubizou.gembro.domain.good;
+package net.tubizou.gembro.domain.map;
 
 import javax.persistence.*;
 import java.util.Date;

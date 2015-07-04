@@ -1,4 +1,4 @@
-package net.tubizou.gembro.domain.good;
+package net.tubizou.gembro.domain.map;
 
 /**
  * Created by quocanh on 23/06/15.

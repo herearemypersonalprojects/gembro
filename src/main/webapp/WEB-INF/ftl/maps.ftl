@@ -1,4 +1,4 @@
-<#-- @ftlvariable name="serviceMap" type="net.tubizou.gembro.domain.good.ServiceMap" -->
+<#-- @ftlvariable name="serviceMap" type="net.tubizou.gembro.domain.map.ServiceMap" -->
 
 <!DOCTYPE html>
 <html>
@@ -89,6 +89,11 @@
             $('#street').blur(function () {
                 ShowLocation();
             });
+
+            $('#submit').click(function() {
+
+                showService();
+            });
         });
     </script>
 </head>
@@ -107,7 +112,22 @@
 
     <!--<input id="pac-input" class="controls" type="text" placeholder="Search Box">-->
 
-    <form id = "serviceMap" role="form" name="serviceMap" method = "post">
+    <form id = "serviceMap" role="serviceMap" name="serviceMap" method = "post">
+        <select id="language" name="city" placeholder="ngon ngu">
+            <option value="paris">Français</option>
+            <option value="Lyon">English</option>
+            <option value="La Courneuve" selected>Tiếng Việt</option>
+            <option value="Auberlliviers">Tieng Nhat</option>
+        </select>
+
+        <select id="serviceType" name="serviceType" placeholder="loai dich vu">
+            <option value="paris">Du lịch</option>
+            <option value="Lyon">Dịch vụ</option>
+            <option value="La Courneuve" selected>Hành chính</option>
+            <option value="Auberlliviers">Thể thao</option>
+            <option value="Auberlliviers">Giáo dục</option>
+            <option value="Auberlliviers">Văn hoá - Cộng đồng</option>
+        </select>
 
         <select id="city" name="city" placeholder="thanh pho">
             <option value="paris">Paris</option>
@@ -118,9 +138,9 @@
 
         <input id="street" name="street" type="text" placeholder="địa chỉ">
 
-        <input id="info"  name="info" type="text" placeholder="thông tin dịch vụ">
+        <input id="info"  name="info" type="text" placeholder="thông tin chi tiết">
 
-        <button type="submit" form="serviceMap">Gửi đi</button>
+        <button id="submit" type="button">Gửi đi</button>
 
     </form>
 

@@ -1,6 +1,6 @@
 package net.tubizou.gembro.repository;
 
-import net.tubizou.gembro.domain.good.Property;
+import net.tubizou.gembro.domain.map.Property;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -13,18 +13,35 @@ var lng;
 // Người dùng thay đổi vị trí bản đồ
 var isMakerDrag = false;
 
-
+// luu tru tam thoi cac vi tri
+var lstLatitudes = new Array(140);
+var lstLongitudes = new Array(40);
+var lstInfos  = new Array(40);
+var size = 0;
 
 //Khởi tạo
 google.maps.event.addDomListener(window, 'load', initialize);
 
+function showService() {
+    size = size + 1;
+    lstLatitudes[size] = $('#txtPositionX').val();
+    lstLongitudes[size] = $('#txtPositionY').val();
+    lstInfos[size] = $('#info').val();
 
+    var idx = size;
+    var servicePos = new google.maps.LatLng(lstLatitudes[idx], lstLongitudes[idx]);
+    var service = new google.maps.InfoWindow({
+        map: map,
+        position: servicePos,
+        content: lstInfos[idx]
+    });
+}
 
 function initialize() {
     try {
         infowindow = new google.maps.InfoWindow();
         var mapOptions = {
-            zoom: 15,
+            zoom: 17,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var mapDiv = document.getElementById('map-canvas');

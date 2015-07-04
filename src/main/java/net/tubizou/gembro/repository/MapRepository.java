@@ -1,6 +1,6 @@
 package net.tubizou.gembro.repository;
 
-import net.tubizou.gembro.domain.good.ServiceMap;
+import net.tubizou.gembro.domain.map.ServiceMap;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
