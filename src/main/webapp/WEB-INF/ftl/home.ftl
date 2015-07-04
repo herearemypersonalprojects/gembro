@@ -1,5 +1,5 @@
 <#-- @ftlvariable name="_csrf" type="org.springframework.security.web.csrf.CsrfToken" -->
-<#-- @ftlvariable name="currentUser" type="info.lequocanh.gembro.domain.user.CurrentUser" -->
+<#-- @ftlvariable name="currentUser" type="net.tubizou.gembro.domain.user.CurrentUser" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +13,7 @@
         <li><a href="/login">Log in</a></li>
     </#if>
     <#if currentUser??>
+
         <li>
             <form action="/logout" method="post">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -25,6 +26,8 @@
         <li><a href="/user/create">Create a new user</a></li>
         <li><a href="/users">View all users</a></li>
     </#if>
+
+        <li><a href="/maps">Location base services</a></li>
     </ul>
 </nav>
 </body>

@@ -1,4 +1,4 @@
-<#-- @ftlvariable name="user" type="info.lequocanh.gembro.domain.user.User" -->
+<#-- @ftlvariable name="user" type="net.tubizou.gembro.domain.user.User" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>

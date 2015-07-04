@@ -1,4 +1,4 @@
-<#-- @ftlvariable name="properties" type="java.util.List<info.lequocanh.gembro.domain.good.Property>" -->
+<#-- @ftlvariable name="properties" type="java.util.List<net.tubizou.gembro.domain.good.Property>" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
