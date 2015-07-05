@@ -143,6 +143,7 @@
             <option value="Auberlliviers">Thể thao</option>
             <option value="Auberlliviers">Giáo dục</option>
             <option value="Auberlliviers">Văn hoá - Cộng đồng</option>
+            <option value="Auberlliviers">Quan hệ</option>
         </select>
 
         <select id="city" name="city" placeholder="thanh pho">

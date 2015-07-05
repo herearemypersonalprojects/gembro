@@ -47,13 +47,18 @@ function getServices() {
 
     $.getJSON('/maps/getServices', function(data){
         $(data).each(function(idx, item){
-
+            var number = 10 + Math.floor(Math.random() * 100);
                // console.log(idx + ': ' + item + ' : ' + item.info + ' : ' + item.latitude + ' : ' + item.longitude);
             var servicePos = new google.maps.LatLng(item.latitude, item.longitude);
             var service = new google.maps.InfoWindow({
                 map: map,
                 position: servicePos,
-                content: item.info + '<br><img src="/static/reviews.jpg" height="48" width="66"><br><a href="/user/create">Xem chi tiết</a>'
+                content: item.info + '  (<a href="/user/create">' + number + ' avis</a>)' +
+                '<li class="pRatng"><img src="http://static.tacdn.com/img2/ratings/traveler/ss5.0.gif" alt="5.0 5 étoiles" class="rsImg"> 75 avis </li>' +
+                //'<br><img src="/static/reviews.jpg" height="30" width="60"> ' +
+                '<br><a href="/user/create">Photos</a>&nbsp;&nbsp;&nbsp;&nbsp;     ' +
+                '<a href="/user/create">Video</a>&nbsp;&nbsp;&nbsp;&nbsp;    ' +
+                '<a href="/user/create">Audio</a>'
             });
         });
     });

@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS service (
   id SMALLINT NOT NULL AUTO_INCREMENT,
   latitude DOUBLE,
   longitude DOUBLE,
-  info VARCHAR(200),
-  KEY (id)
+info VARCHAR(200),
+KEY (id)
 );
+
