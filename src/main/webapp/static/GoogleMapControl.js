@@ -53,7 +53,7 @@ function getServices() {
             var service = new google.maps.InfoWindow({
                 map: map,
                 position: servicePos,
-                content: item.info
+                content: item.info + '<br><img src="/static/reviews.jpg" height="48" width="66"><br><a href="/user/create">Xem chi tiết</a>'
             });
         });
     });
@@ -116,7 +116,7 @@ function initialize() {
 
 
                 var widgetDiv = document.getElementById('save-widget');
-                map.controls[google.maps.ControlPosition.TOP_LEFT].push(widgetDiv);
+                map.controls[google.maps.ControlPosition.RIGHT].push(widgetDiv);
 
                 geocoder = new google.maps.Geocoder();
                 getAddress();

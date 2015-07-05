@@ -22,6 +22,9 @@
             font-family: Roboto, Arial;
             font-size: 13px;
             margin: 15px;
+            position: absolute;
+            right: 96px;
+            top: 16px;
         }
 
         .controls {
@@ -81,13 +84,16 @@
 
     <script type="text/javascript">
         $(function () {
+
+
             $('#city').change(function () {
-                $('#street').val("");
+                //$('#street').val("");
                 ShowLocation();
             });
 
             $('#street').blur(function () {
                 ShowLocation();
+                $('#save-widget').show();
             });
 
             $('#submit').click(function() {
@@ -105,7 +111,7 @@
     <input id="txtPositionY" type="hidden" value="" name="txtPositionY">
     <input id="txtPositionX" type="hidden" value="" name="txtPositionX">
 
-    <div id="save-widget">
+    <div id="save-widget" style="display: none;">
         <strong>Cảm ơn bạn đã đóng góp cho cộng đồng</strong>
         <p>Bạn có thể sửa địa chỉ bằng cách di chuyển icon tới đúng vị trí trên bản đồ.</p>
     </div>
@@ -120,10 +126,20 @@
             <option value="Auberlliviers">Tieng Nhat</option>
         </select>
 
+        <select id="review" name="city" placeholder="ngon ngu">
+            <option value="paris" selected>Rất tuyệt vời</option>
+            <option value="Lyon">Tuyệt vời</option>
+            <option value="La Courneuve" >Trung bình</option>
+            <option value="Auberlliviers">Kém</option>
+            <option value="Auberlliviers">Rất kém</option>
+        </select>
+
         <select id="serviceType" name="serviceType" placeholder="loai dich vu">
             <option value="paris">Du lịch</option>
-            <option value="Lyon">Dịch vụ</option>
-            <option value="La Courneuve" selected>Hành chính</option>
+            <option value="Lyon">Ăn uống</option>
+            <option value="Lyon">Mua bán</option>
+            <option value="La Courneuve">Hành chính</option>
+            <option value="La Courneuve" selected>Tất cả các loại dịch vụ</option>
             <option value="Auberlliviers">Thể thao</option>
             <option value="Auberlliviers">Giáo dục</option>
             <option value="Auberlliviers">Văn hoá - Cộng đồng</option>
@@ -136,9 +152,9 @@
             <option value="Auberlliviers">Auberlliviers</option>
         </select>
 
-        <input id="street" name="street" type="text" placeholder="địa chỉ">
+        <input id="street" name="street" type="text" size="30" placeholder="nhập vào số nhà, tên đường phố">
 
-        <input id="info"  name="info" type="text" placeholder="thông tin chi tiết">
+        <input id="info"  name="info" type="text" size="45" placeholder="nhập vào thông tin dịch vụ + đánh giá, nhận xét">
 
         <button id="submit" type="button">Gửi đi</button>
 
