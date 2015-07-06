@@ -15,7 +15,7 @@
         }
 
         #save-widget {
-            width: 300px;
+            width: 150px;
             box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
             background-color: white;
             padding: 10px;
@@ -25,6 +25,19 @@
             position: absolute;
             right: 96px;
             top: 16px;
+        }
+
+        #save-widget1 {
+            width: 300px;
+            box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
+            background-color: white;
+            padding: 10px;
+            font-family: Roboto, Arial;
+            font-size: 13px;
+            margin: 15px;
+            position: absolute;
+            right: 96px;
+            top: 86px;
         }
 
         .controls {
@@ -111,7 +124,25 @@
     <input id="txtPositionY" type="hidden" value="" name="txtPositionY">
     <input id="txtPositionX" type="hidden" value="" name="txtPositionX">
 
-    <div id="save-widget" style="display: none;">
+    <button id="save-widget" type="button">Them dia diem</button>
+    <div id="save-widget1" style="display: block;">
+        <form id = "newPlace" method="POST">
+
+            <input type="button">Them dia diem</input>
+            Ten dia diem: <input type="text"/>
+            Thong tin dia diem:
+            Cho diem:
+            <select id="review" name="city" placeholder="ngon ngu">
+                <option value="paris" selected>Rất tuyệt vời</option>
+                <option value="Lyon">Tuyệt vời</option>
+                <option value="La Courneuve" >Trung bình</option>
+                <option value="Auberlliviers">Kém</option>
+                <option value="Auberlliviers">Rất kém</option>
+            </select>
+
+            Danh gia, nhan xet cua ban:
+
+        </form>
         <strong>Cảm ơn bạn đã đóng góp cho cộng đồng</strong>
         <p>Bạn có thể sửa địa chỉ bằng cách di chuyển icon tới đúng vị trí trên bản đồ.</p>
     </div>
@@ -126,13 +157,6 @@
             <option value="Auberlliviers">Tieng Nhat</option>
         </select>
 
-        <select id="review" name="city" placeholder="ngon ngu">
-            <option value="paris" selected>Rất tuyệt vời</option>
-            <option value="Lyon">Tuyệt vời</option>
-            <option value="La Courneuve" >Trung bình</option>
-            <option value="Auberlliviers">Kém</option>
-            <option value="Auberlliviers">Rất kém</option>
-        </select>
 
         <select id="serviceType" name="serviceType" placeholder="loai dich vu">
             <option value="paris">Du lịch</option>
