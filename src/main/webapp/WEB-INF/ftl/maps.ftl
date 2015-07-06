@@ -17,7 +17,6 @@
         #save-widget {
             width: 150px;
             box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
-            background-color: white;
             padding: 10px;
             font-family: Roboto, Arial;
             font-size: 13px;
@@ -28,7 +27,7 @@
         }
 
         #save-widget1 {
-            width: 300px;
+            width: 320px;
             box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
             background-color: white;
             padding: 10px;
@@ -88,7 +87,7 @@
 
     </style>
 
-    <title>Places search box</title>
+    <title>Kết nối cộng đồng</title>
 
     <script src="/static/jquery-2.1.1.js" type="text/javascript"></script>
     <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;language=vi&amp;v=3.exp&libraries=places" type="text/javascript"></script>
@@ -124,23 +123,24 @@
     <input id="txtPositionY" type="hidden" value="" name="txtPositionY">
     <input id="txtPositionX" type="hidden" value="" name="txtPositionX">
 
-    <button id="save-widget" type="button">Them dia diem</button>
-    <div id="save-widget1" style="display: block;">
+    <button id="save-widget" type="button">Thêm địa điểm</button>
+    <div id="save-widget1">
         <form id = "newPlace" method="POST">
 
-            <input type="button">Them dia diem</input>
-            Ten dia diem: <input type="text"/>
-            Thong tin dia diem:
-            Cho diem:
-            <select id="review" name="city" placeholder="ngon ngu">
+
+            <input name="ReviewTitle" maxlength="120" cols="40" value="" placeholder="Tên địa điểm" autocomplete="off" type="text">
+            <br>
+            <textarea name="text" rows="5" cols="40" placeholder="Viết đánh giá của bạn ở đây"></textarea>
+            <br>
+            Cho điểm:
+            <select id="review" name="city placeholder="ngon ngu">
                 <option value="paris" selected>Rất tuyệt vời</option>
                 <option value="Lyon">Tuyệt vời</option>
                 <option value="La Courneuve" >Trung bình</option>
                 <option value="Auberlliviers">Kém</option>
                 <option value="Auberlliviers">Rất kém</option>
             </select>
-
-            Danh gia, nhan xet cua ban:
+            <br>
 
         </form>
         <strong>Cảm ơn bạn đã đóng góp cho cộng đồng</strong>
@@ -159,6 +159,7 @@
 
 
         <select id="serviceType" name="serviceType" placeholder="loai dich vu">
+            <option value="paris">Tìm hoặc cho thuê nhà</option>
             <option value="paris">Du lịch</option>
             <option value="Lyon">Ăn uống</option>
             <option value="Lyon">Mua bán</option>
