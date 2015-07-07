@@ -1,22 +1,17 @@
 package net.tubizou.gembro.controller.map;
 
 import net.tubizou.gembro.domain.map.ServiceMap;
-import net.tubizou.gembro.domain.user.UserCreateForm;
 import net.tubizou.gembro.service.Service.MapService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.validation.Valid;
-import javax.xml.ws.Service;
 
 /**
  * Created by quocanh on 02/07/15.
@@ -35,6 +30,7 @@ public class MapController {
 
     @RequestMapping(value = "/maps", method = RequestMethod.GET)
     public ModelAndView displayMaps() {
+        mapService.address2latlong();
         LOGGER.debug("Maps Page");
         return new ModelAndView("maps", "serviceMap", new ServiceMap());
     }

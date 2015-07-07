@@ -84,7 +84,7 @@ public class Address2LatLongitude {
 
         public static void main(String[] args) throws IOException {
 
-            GoogleResponse res = new Address2LatLongitude().convertToLatLong("Apollo Bunder,Mumbai ,Maharashtra, India");
+            GoogleResponse res = new Address2LatLongitude().convertToLatLong("9 rue de monttessuy, Paris 75007");
             if (res.getStatus().equals("OK")) {
                 for (Result result : res.getResults()) {
                     System.out.println("Lattitude of address is :" + result.getGeometry().getLocation().getLat());
@@ -96,7 +96,7 @@ public class Address2LatLongitude {
             }
 
             System.out.println("\n");
-            GoogleResponse res1 = new Address2LatLongitude().convertFromLatLong("18.92038860,72.83013059999999");
+            GoogleResponse res1 = new Address2LatLongitude().convertFromLatLong("48.85929400000001,2.298782");
             if (res1.getStatus().equals("OK")) {
                 for (Result result : res1.getResults()) {
                     System.out.println("address is :" + result.getFormatted_address());
