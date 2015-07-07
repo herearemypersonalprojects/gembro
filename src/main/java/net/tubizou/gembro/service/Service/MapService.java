@@ -42,4 +42,5 @@ public class MapService {
         LOGGER.debug("jsonServiceList: " + jsonServiceList);
         return jsonServiceList;
     }
+
 }
