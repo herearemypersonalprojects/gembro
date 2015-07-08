@@ -49,18 +49,20 @@ function getServices() {
         $(data).each(function(idx, item){
             var number = 10 + Math.floor(Math.random() * 100);
                // console.log(idx + ': ' + item + ' : ' + item.info + ' : ' + item.latitude + ' : ' + item.longitude);
+
+            var content = item.info + ':  ' + item.address + ', ' + item.city +
+                '<li class="pRatng"><img src="http://static.tacdn.com/img2/ratings/traveler/ss5.0.gif" alt="5.0 5 étoiles" class="rsImg"> (<a href="/user/create">' + number + ' avis</a>) </li>' +
+                ' <br> <textarea name="text" rows="2" cols="40" placeholder="Bạn nghĩ gì về địa điểm này ?"></textarea> ';
+            //'<br><img src="/static/reviews.jpg" height="30" width="60"> ' +
+            //'<br><a href="/user/create">Photos</a>&nbsp;&nbsp;&nbsp;&nbsp;     ' +
+            //'<a href="/user/create">Video</a>&nbsp;&nbsp;&nbsp;&nbsp;    ' +
+            //'<a href="/user/create">Audio</a>'
+
             var servicePos = new google.maps.LatLng(item.latitude, item.longitude);
             var service = new google.maps.InfoWindow({
                 map: map,
                 position: servicePos,
-                content: item.info + ':  ' + item.address + ', ' + item.city +
-
-                '<li class="pRatng"><img src="http://static.tacdn.com/img2/ratings/traveler/ss5.0.gif" alt="5.0 5 étoiles" class="rsImg"> (<a href="/user/create">' + number + ' avis</a>) </li>' +
-                ' <br> <textarea name="text" rows="2" cols="40" placeholder="Bạn nghĩ gì về địa điểm này ?"></textarea> '
-                //'<br><img src="/static/reviews.jpg" height="30" width="60"> ' +
-                //'<br><a href="/user/create">Photos</a>&nbsp;&nbsp;&nbsp;&nbsp;     ' +
-                //'<a href="/user/create">Video</a>&nbsp;&nbsp;&nbsp;&nbsp;    ' +
-                //'<a href="/user/create">Audio</a>'
+                content:  content.substring(0, 50)
             });
 
         });

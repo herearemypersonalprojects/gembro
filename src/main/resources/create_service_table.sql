@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS service (
-  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `latitude` double DEFAULT NULL,
   `longitude` double DEFAULT NULL,
   `info` varchar(200) DEFAULT NULL,
@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS service (
   KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
+alter table service modify id int(10) unsigned not null auto_increment;
 
 insert into service (address, city, postal_code, info)
 
