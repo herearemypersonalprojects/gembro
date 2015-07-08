@@ -47,6 +47,23 @@ function getServices() {
 
     $.getJSON('/maps/getServices', function(data){
         $(data).each(function(idx, item){
+            var address = item.address + ', ' + item.city + ' ' + item.postalCode;
+            console.log(address);
+            showLocation(address);
+
+
+
+
+            var servicePos = new google.maps.LatLng($('#txtPositionX').val(),$('#txtPositionY').val());
+            var service = new google.maps.InfoWindow({
+                map: map,
+                position: servicePos,
+                content: item.info
+            });
+
+            sleep(1000);
+
+            /*
             var number = 10 + Math.floor(Math.random() * 100);
                // console.log(idx + ': ' + item + ' : ' + item.info + ' : ' + item.latitude + ' : ' + item.longitude);
             var servicePos = new google.maps.LatLng(item.latitude, item.longitude);
@@ -60,8 +77,18 @@ function getServices() {
                 '<a href="/user/create">Video</a>&nbsp;&nbsp;&nbsp;&nbsp;    ' +
                 '<a href="/user/create">Audio</a>'
             });
+            */
         });
     });
+}
+
+function sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+        if ((new Date().getTime() - start) > milliseconds){
+            break;
+        }
+    }
 }
 
 function initialize() {
@@ -392,7 +419,7 @@ function showLocation(address) {
                     infowindow.open(map, marker);
                 }
             } else {
-//alert("Geocode was not successful for the following reason: " + status);
+                console.log("Geocode was not successful for the following reason: " + status);
                 if (address.indexOf(',') > 0) {
                     var add = address.substring(address.indexOf(',') + 1);
                     showLocation(add);

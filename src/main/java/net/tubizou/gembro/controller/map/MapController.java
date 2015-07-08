@@ -25,12 +25,13 @@ public class MapController {
 
     @Autowired
     public MapController(MapService mapService) {
+
         this.mapService = mapService;
+        mapService.address2latlong();
     }
 
     @RequestMapping(value = "/maps", method = RequestMethod.GET)
     public ModelAndView displayMaps() {
-        mapService.address2latlong();
         LOGGER.debug("Maps Page");
         return new ModelAndView("maps", "serviceMap", new ServiceMap());
     }

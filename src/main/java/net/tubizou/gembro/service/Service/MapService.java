@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -34,7 +35,8 @@ public class MapService {
     }
 
     public String getListMaps() {
-        List<ServiceMap> lstServices = mapRepository.findAll();
+        //List<ServiceMap> lstServices = mapRepository.findAll();
+        Collection<ServiceMap> lstServices = mapRepository.findByPostalCode(93120);
 
         LOGGER.debug("So luong dich vu: " + lstServices.size());
 
@@ -51,6 +53,7 @@ public class MapService {
         List<ServiceMap> lstServices = mapRepository.findAll();
 
         GoogleResponse res = null;
+        int count = 0;
         for (ServiceMap serviceMap : lstServices) {
             if (serviceMap.getLatitude() == null || serviceMap.getLongitude() == null)
             try {
@@ -60,6 +63,7 @@ public class MapService {
                     for (Result result : res.getResults()) {
                         serviceMap.setLatitude(Double.parseDouble(result.getGeometry().getLocation().getLat()));
                         serviceMap.setLongitude(Double.parseDouble(result.getGeometry().getLocation().getLng()));
+                        mapRepository.save(serviceMap);
                         /*
                         System.out.println("Lattitude of address is :" + result.getGeometry().getLocation().getLat());
                         System.out.println("Longitude of address is :" + result.getGeometry().getLocation().getLng());
@@ -72,6 +76,13 @@ public class MapService {
 
             } catch (IOException e) {
                 LOGGER.debug(e.getMessage());
+            }
+            count++;
+            if (count >= 2500) break;
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
