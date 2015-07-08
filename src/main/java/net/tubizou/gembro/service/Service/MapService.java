@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -36,7 +35,8 @@ public class MapService {
 
     public String getListMaps() {
         //List<ServiceMap> lstServices = mapRepository.findAll();
-        Collection<ServiceMap> lstServices = mapRepository.findByPostalCode(93120);
+        //Collection<ServiceMap> lstServices = mapRepository.findByPostalCode(93120);
+        List<ServiceMap> lstServices = mapRepository.findAllNotNull();
 
         LOGGER.debug("So luong dich vu: " + lstServices.size());
 

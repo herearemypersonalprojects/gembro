@@ -27,7 +27,6 @@ public class MapController {
     public MapController(MapService mapService) {
 
         this.mapService = mapService;
-        mapService.address2latlong();
     }
 
     @RequestMapping(value = "/maps", method = RequestMethod.GET)
