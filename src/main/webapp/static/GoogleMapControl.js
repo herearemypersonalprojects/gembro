@@ -1,5 +1,7 @@
 
 var map = undefined;
+var paris = new google.maps.LatLng(48.856614, 2.3522219000000177);
+
 var marker = null;
 var geocoder = null;
 var infowindow = null;
@@ -16,6 +18,18 @@ var lstLatitudes = new Array(140);
 var lstLongitudes = new Array(40);
 var lstInfos  = new Array(40);
 var size = 0;
+
+// nhap du lieu
+var placeSearch, autocomplete;
+var componentForm = {
+    street_number: 'short_name',
+    route: 'long_name',
+    locality: 'long_name',
+    administrative_area_level_1: 'short_name',
+    country: 'long_name',
+    postal_code: 'short_name'
+};
+
 
 //Khởi tạo
 google.maps.event.addDomListener(window, 'load', initialize);
@@ -46,26 +60,32 @@ function showService() {
 function getServices() {
 
     $.getJSON('/maps/getServices', function(data){
+        //  Create a new viewpoint bound
+        var bounds = new google.maps.LatLngBounds ();
+
         $(data).each(function(idx, item){
             var number = 10 + Math.floor(Math.random() * 100);
                // console.log(idx + ': ' + item + ' : ' + item.info + ' : ' + item.latitude + ' : ' + item.longitude);
 
-            var content = item.info + ':  ' + item.address + ', ' + item.city +
-                '<li class="pRatng"><img src="http://static.tacdn.com/img2/ratings/traveler/ss5.0.gif" alt="5.0 5 étoiles" class="rsImg"> (<a href="/user/create">' + number + ' avis</a>) </li>' +
-                ' <br> <textarea name="text" rows="2" cols="40" placeholder="Bạn nghĩ gì về địa điểm này ?"></textarea> ';
+            var content = item.info + '<br>' + item.address + ', ' + item.city +
+                //'<li class="pRatng"><img src="http://static.tacdn.com/img2/ratings/traveler/ss5.0.gif" alt="5.0 5 étoiles" class="rsImg"> (<a href="/user/create">' + number + ' avis</a>) </li>' +
+                ' <br> <textarea name="text" rows="2" cols="30" placeholder="Bạn nghĩ gì về địa điểm này ?"></textarea> ';
             //'<br><img src="/static/reviews.jpg" height="30" width="60"> ' +
             //'<br><a href="/user/create">Photos</a>&nbsp;&nbsp;&nbsp;&nbsp;     ' +
             //'<a href="/user/create">Video</a>&nbsp;&nbsp;&nbsp;&nbsp;    ' +
             //'<a href="/user/create">Audio</a>'
 
             var servicePos = new google.maps.LatLng(item.latitude, item.longitude);
-            var service = new google.maps.InfoWindow({
+            bounds.extend (servicePos);
+            infowindow = new google.maps.InfoWindow({
                 map: map,
                 position: servicePos,
-                content:  content.substring(0, 50)
+                content:  content//.substring(0, 50)
             });
-
         });
+
+        //  Fit these bounds to the map
+        map.fitBounds (bounds);
     });
 }
 
@@ -82,13 +102,149 @@ function initialize() {
     try {
         infowindow = new google.maps.InfoWindow();
         var mapOptions = {
-            zoom: 17,
+            zoom: 13,
+            center: paris,
+            panControl: false,
+            zoomControl: true,
+            mapTypeControl: false,
+            scaleControl: false,
+            streetViewControl: false,
+            overviewMapControl: true,
+
+            zoomControlOptions: {
+                style: google.maps.ZoomControlStyle.SMALL,
+                position: google.maps.ControlPosition.LEFT_CENTER
+            },
+
+
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var mapDiv = document.getElementById('map-canvas');
 
         map = new google.maps.Map(mapDiv, mapOptions);
 
+        //var marker = new google.maps.Marker({
+        //    position: map.getCenter(),
+        //    map: map,
+        //    title: 'Nhan chuot vao day de phong to man hinh'
+        //});
+
+        // Bat su kien dich chuyen tam nhin cho khac
+        google.maps.event.addListener(map, 'center_changed', function() {
+            // 3 seconds after the center of the map has changed, pan back to the
+            // marker.
+            //window.setTimeout(function() {
+            //    map.panTo(marker.getPosition());
+            //}, 3000);
+        });
+
+        // Bat su kien di chuyen man hinh
+        google.maps.event.addListener(map, 'bounds_changed', function() {
+            // 3 seconds after the center of the map has changed, pan back to the
+            // marker.
+            //window.setTimeout(function() {
+            //    map.panTo(marker.getPosition());
+            //}, 3000);
+        });
+
+        // Bat su kien phong to thu nho man hinh
+        //var infowindow = new google.maps.InfoWindow({
+        //    content: 'Change the zoom level',
+        //    position: paris
+        //});
+        //infowindow.open(map);
+
+        google.maps.event.addListener(map, 'zoom_changed', function() {
+            //var zoomLevel = map.getZoom();
+            //map.setCenter(paris);
+            //infowindow.setContent('Zoom: ' + zoomLevel);
+        });
+
+
+
+
+        /*
+         var addressInput = (document.getElementById('street'));
+         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(addressInput);
+
+
+         var cityInput =(document.getElementById('city'));
+         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(cityInput);
+         */
+
+
+        var widgetDiv = document.getElementById('save-widget');
+        map.controls[google.maps.ControlPosition.RIGHT].push(widgetDiv);
+
+        geocoder = new google.maps.Geocoder();
+
+        //infowindow = new google.maps.InfoWindow({
+        //    map: map,
+        //    position: paris,
+        //    content: 'sd'
+        //});
+
+        marker = new google.maps.Marker({
+            map: map,
+            position: paris,
+            draggable: true
+        });
+
+        // Opens the InfoWindow when marker is clicked.
+        marker.addListener('click', function() {
+            //infowindow.open(map, marker);
+        });
+
+
+        var addNewServiceForm = document.getElementById('serviceMap');
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(addNewServiceForm);
+
+        // hien thi tat ca dich vu tren ban do
+        getServices();
+
+        // Create the autocomplete object, restricting the search
+        // to geographical location types.
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {HTMLInputElement} */(document.getElementById('addressInput')),
+            { types: ['geocode'] });
+        // When the user selects an address from the dropdown,
+        // populate the address fields in the form.
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            fillInAddress();
+        });
+
+        map.controls[google.maps.ControlPosition.RIGHT].push(autocomplete);
+
+        google.maps.event.addListener(map, 'click', function (event) {
+            placeMarker(event.latLng);
+        });
+        google.maps.event.addListener(marker, 'dragstart', function () {
+            if (infowindow != null)
+                infowindow.close();
+        });
+        google.maps.event.addListener(marker, 'dragend', function () {
+            getAddress(true);
+        });
+
+
+
+
+        /*
+         for (var i = 0; i < 5; i++) {
+         var pos3 = new google.maps.LatLng(
+         position.coords.latitude,
+         position.coords.longitude + 0.004*i);
+         var marker = new google.maps.Marker({
+         position: pos3,
+         map: map
+         });
+
+         marker.setTitle((i + 1).toString());
+         attachSecretMessage(marker, i);
+         }
+         */
+
+        /*
         // Try HTML5 geolocation
         if(navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
@@ -116,55 +272,6 @@ function initialize() {
 
                 map.setCenter(pos);
 
-                /*
-                var input = (document.getElementById('pac-input'));
-                map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
-                */
-                var addNewServiceForm = /** @type {HTMLInputElement} */(
-                    document.getElementById('serviceMap'));
-                map.controls[google.maps.ControlPosition.TOP_RIGHT].push(addNewServiceForm);
-
-                /*
-                var addressInput = (document.getElementById('street'));
-                map.controls[google.maps.ControlPosition.TOP_RIGHT].push(addressInput);
-
-
-                var cityInput =(document.getElementById('city'));
-                map.controls[google.maps.ControlPosition.TOP_RIGHT].push(cityInput);
-                */
-
-
-                var widgetDiv = document.getElementById('save-widget');
-                map.controls[google.maps.ControlPosition.RIGHT].push(widgetDiv);
-
-                geocoder = new google.maps.Geocoder();
-                getAddress();
-
-                google.maps.event.addListener(map, 'click', function (event) {
-                    placeMarker(event.latLng);
-                });
-                google.maps.event.addListener(marker, 'dragstart', function () {
-                    if (infowindow != null)
-                        infowindow.close();
-                });
-                google.maps.event.addListener(marker, 'dragend', function () {
-                    getAddress(true);
-                });
-                /*
-                for (var i = 0; i < 5; i++) {
-                    var pos3 = new google.maps.LatLng(
-                        position.coords.latitude,
-                        position.coords.longitude + 0.004*i);
-                    var marker = new google.maps.Marker({
-                        position: pos3,
-                        map: map
-                    });
-
-                    marker.setTitle((i + 1).toString());
-                    attachSecretMessage(marker, i);
-                }
-                */
-
             }, function() {
                 handleNoGeolocation(true);
             });
@@ -173,15 +280,58 @@ function initialize() {
             handleNoGeolocation(false);
         }
 
-        // hien thi tat ca dich vu tren ban do
-        getServices();
+        /*
+         var input = (document.getElementById('pac-input'));
+         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
+         */
+
 
     } catch (ex) {
+        console.log("Co loi: " + ex);
+    }
+}
+
+// [START region_fillform]
+function fillInAddress() {
+    // Get the place details from the autocomplete object.
+    var place = autocomplete.getPlace();
+
+    for (var component in componentForm) {
+        document.getElementById(component).value = '';
+        document.getElementById(component).disabled = false;
     }
 
-
-
+    // Get each component of the address from the place details
+    // and fill the corresponding field on the form.
+    for (var i = 0; i < place.address_components.length; i++) {
+        var addressType = place.address_components[i].types[0];
+        if (componentForm[addressType]) {
+            var val = place.address_components[i][componentForm[addressType]];
+            document.getElementById(addressType).value = val;
+        }
+    }
 }
+// [END region_fillform]
+
+// [START region_geolocation]
+// Bias the autocomplete object to the user's geographical location,
+// as supplied by the browser's 'navigator.geolocation' object.
+function geolocate() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = new google.maps.LatLng(
+                position.coords.latitude, position.coords.longitude);
+            var circle = new google.maps.Circle({
+                center: geolocation,
+                radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+        });
+    }
+}
+// [END region_geolocation]
+
+
 function showAlert() {
     window.alert('DIV clicked');
 }
@@ -348,17 +498,24 @@ function showProjectLocation(lat, lng, name) {
     google.maps.event.addListener(marker, 'dragend', getAddress);
 }
 
+function MyShowLocation() {
+    showLocation($('#addressInput').val());
+    map.setZoom(18);
+}
+
 function ShowLocation() {
     var address = "";
+    var country = $('#country').val();
     var cityCode = $('#city').val();
+    var cp = $('#cp').val();
     var street = $('#street').val();
 
     address = street + ", ";
 
     if (cityCode != '' && cityCode != 0) {
-        address = address + $('#city').children('option:selected').text() + ", ";
+        address = address + $('#city').children('option:selected').text() + " " + cp + ", ";
     }
-    address = address + "France";
+    address = address + $('#country').children('option:selected').text();
 //initialize($('#hdfLatitude').val(), $('#hdfLongitude').val());
     var mySplitResult = strLatLng().split(",");
     $("#hddLatitude").val(mySplitResult[0]);
@@ -439,7 +596,10 @@ function getAddress(makerDrag) {
         geocoder.geocode({ 'latLng': latlng }, function (results2, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 if (results2 != null && results2[0] != null) {
+                    getCity(results2);
+
                     addressReturn = results2[0].formatted_address;
+                    $('#addressInput').val(addressReturn);
                     if (infowindow != null) {
                         infowindow.setContent("<span id='address'><b>" + bds_lang.GoogleMaps.Address + " : </b>" + results2[0].formatted_address + "</span>");
                         infowindow.open(map, marker);
@@ -458,6 +618,50 @@ function getAddress(makerDrag) {
         console.log(ex);
     }
 }
+
+function getCity(results) {
+    //break down the three dimensional array into simpler arrays
+    for (i = 0 ; i < results.length ; ++i)
+    {
+        var super_var1 = results[i].address_components;
+        for (j = 0 ; j < super_var1.length ; ++j)
+        {console.log(super_var1[j].long_name);
+            var super_var2 = super_var1[j].types;
+            for (k = 0 ; k < super_var2.length ; ++k)
+            {console.log(super_var2[k] + ':'  + super_var1[j].long_name);
+                //find city
+                if (super_var2[k] == "locality")
+                {
+                    //put the city name in the form
+                    $('#locality').val(super_var1[j].long_name);
+                }
+                //find county
+                if (super_var2[k] == "country")
+                {
+                    //put the county name in the form
+                    $('#country').val(super_var1[j].long_name);
+                }
+                //find State
+                if (super_var2[k] == "postal_code")
+                {
+                    //put the state abbreviation in the form
+                    $('#postal_code').val(super_var1[j].short_name);
+                }
+                // street_number 66:  i
+                if (address_component.types[0] == "street_number"){
+                    $('#route').val(address_component.long_name);
+                }
+
+                if (address_component.types[0] == "route"){
+                    console.log(i+": route:"+address_component.long_name);
+                    $('#street_number').val(address_component.long_name);
+                }
+
+            }
+        }
+    }
+}
+
 function showAdd(address) {
     try {
         var point = marker.getPosition();
