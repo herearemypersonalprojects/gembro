@@ -537,6 +537,7 @@ function showLocation(address) {
         if (marker != null) marker.setMap(null);
         geocoder.geocode({ 'address': address }, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
+                getCity(results);
                 var lat = '';
                 var lng = '';
                 if (address.indexOf("Trường Sa") >= 0) {
@@ -648,13 +649,12 @@ function getCity(results) {
                     $('#postal_code').val(super_var1[j].short_name);
                 }
                 // street_number 66:  i
-                if (address_component.types[0] == "street_number"){
-                    $('#route').val(address_component.long_name);
+                if (super_var2[k] == "street_number"){
+                    $('#street_number').val(super_var1[j].short_name);
                 }
 
-                if (address_component.types[0] == "route"){
-                    console.log(i+": route:"+address_component.long_name);
-                    $('#street_number').val(address_component.long_name);
+                if (super_var2[k] == "route"){
+                    $('#route').val(super_var1[j].short_name);
                 }
 
             }
