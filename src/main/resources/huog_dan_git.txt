@@ -1,0 +1,7 @@
+git add .
+
+git commit -m "type your commit message here"
+
+// Cho lan dau tien: git remote add origin https://github.com/username/rails-girls.git
+
+git push origin master
