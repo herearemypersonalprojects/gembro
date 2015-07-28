@@ -5,5 +5,6 @@ git add .
 git commit -m "type your commit message here"
 
 // Cho lan dau tien: git remote add origin https://github.com/username/rails-girls.git
-
+// Cho lan dau tien: git push -u origin --all # pushes up the repo and its refs for the first time
+// Cho lan dau tien: git push -u origin --tags # pushes up any tags
 git push origin master
